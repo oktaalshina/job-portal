@@ -27,13 +27,13 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
-            'role' => 'required|in:admin,jobseeker',
+            // 'role' => 'required|in:admin,jobseeker',
         ]);
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            // 'role' => $request->role,
         ]);
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
