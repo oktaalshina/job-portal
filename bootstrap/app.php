@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // mendaftarkan alias route middleware
         $middleware ->alias([
-            'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+            'isAdmin' => IsAdmin::class,
         ]);
 
         //atau menambahkan ke grup "api"

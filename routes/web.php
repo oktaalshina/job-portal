@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/jobs', [JobController::class, 'index'])->middleware('auth', 'isAdmin');
+Route::resource('jobs', JobController::class)->middleware(['auth', 'isAdmin']);
 
 Route::get('/admin', function () {
     return "Halaman Admin";
