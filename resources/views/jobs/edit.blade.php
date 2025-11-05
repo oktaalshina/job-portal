@@ -49,6 +49,17 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="job_type" class="block text-sm font-medium text-gray-700">Jenis Pekerjaan</label>
+                            <select name="job_type" id="job_type" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">Pilih Jenis Pekerjaan</option>
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                            </select>
+                        </div>
+
+
+                        <div class="mb-4">
                             <label for="logo" class="block text-sm font-medium text-gray-700">Logo Perusahaan (Opsional)</label>
                             
                             @if ($job->logo)

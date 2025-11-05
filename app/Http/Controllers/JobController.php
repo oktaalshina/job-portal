@@ -40,6 +40,7 @@ class JobController extends Controller
             'location' => $request->location,
             'company' => $request->company,
             'salary' => $request->salary,
+            'job_type' => $request->job_type,
             'logo' => $logoPath
         ]);
 
@@ -69,7 +70,7 @@ class JobController extends Controller
         ]);
 
         // 2. Siapkan data untuk di-update
-        $data = $request->only('title', 'description', 'location', 'company', 'salary');
+        $data = $request->only('title', 'description', 'location', 'company', 'salary', 'job_type');
 
         // 3. Cek jika ada file logo BARU yang di-upload
         if ($request->hasFile('logo')) {

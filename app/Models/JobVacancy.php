@@ -16,5 +16,6 @@ class JobVacancy extends Model
         'company',
         'logo',
         'salary',
+        'job_type',
         ];
 }

@@ -44,6 +44,17 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="job_type" class="block text-sm font-medium text-gray-700">Jenis Pekerjaan (Opsional)</label>
+                            <select name="job_type" id="job_type" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">Pilih Jenis Pekerjaan</option>
+                                <option value="Full-time" {{ old('job_type') == 'Full-time' ? 'selected' : '' }}>Full-time</option>
+                                <option value="Part-time" {{ old('job_type') == 'Part-time' ? 'selected' : '' }}>Part-time</option>
+                            </select>
+                        </div>
+
+
+                        <div class="mb-4">
                             <label for="logo" class="block text-sm font-medium text-gray-700">Logo Perusahaan (Opsional)</label>
                             <input type="file" name="logo" id="logo" 
                                    class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
