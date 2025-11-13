@@ -18,9 +18,13 @@
                     <x-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.*')">
                         {{ __('Lowongan') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
-                        {{ __('Daftar Pelamar') }}
-                    </x-nav-link>
+                    @auth
+                        @if(auth()->user()->role === 'admin')
+                            <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
+                                {{ __('Daftar Pelamar') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 

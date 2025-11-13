@@ -29,29 +29,29 @@
                     {{-- Detail Lowongan --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 bg-gray-50 p-6 rounded-lg">
                         <div>
-                            <p class="text-sm font-medium text-gray-500 mb-1">📍 Lokasi</p>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Lokasi</p>
                             <p class="text-base text-gray-900 font-semibold">{{ $job->location }}</p>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-500 mb-1">💼 Jenis Pekerjaan</p>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Jenis Pekerjaan</p>
                             <p class="text-base text-gray-900 font-semibold">{{ $job->job_type }}</p>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-500 mb-1">💰 Gaji</p>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Gaji</p>
                             <p class="text-base text-gray-900 font-semibold">
                                 {{ $job->salary ? 'Rp ' . number_format($job->salary, 0, ',', '.') : 'Negosiasi' }}
                             </p>
                         </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-500 mb-1">📅 Diposting</p>
+                        {{-- <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">Diposting</p>
                             <p class="text-base text-gray-900 font-semibold">{{ $job->created_at->diffForHumans() }}</p>
-                        </div>
+                        </div> --}}
                     </div>
 
                     {{-- Deskripsi --}}
                     <div class="mb-8">
                         <h4 class="text-xl font-bold text-gray-900 mb-4 border-b-2 border-indigo-600 pb-2">
-                            📋 Deskripsi Pekerjaan
+                            Deskripsi Pekerjaan
                         </h4>
                         <div class="prose max-w-none">
                             <p class="text-gray-700 whitespace-pre-line leading-relaxed">{{ $job->description }}</p>
@@ -60,7 +60,7 @@
 
                     {{-- Form Lamar --}}
                     <div class="border-t-2 border-gray-200 pt-8">
-                        <h4 class="text-xl font-bold text-gray-900 mb-4">🚀 Lamar Pekerjaan Ini</h4>
+                        <h4 class="text-xl font-bold text-gray-900 mb-4">Lamar Pekerjaan Ini</h4>
                         
                         @if(session('success'))
                             <div class="mb-4 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded">
@@ -75,7 +75,7 @@
                             @csrf
                             <div class="mb-6">
                                 <label for="cv" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    📄 Upload CV Anda (PDF, max 2MB)
+                                    Upload CV Anda (PDF, max 2MB)
                                 </label>
                                 <input type="file" 
                                        name="cv" 
@@ -92,7 +92,7 @@
                             <div class="flex gap-3">
                                 <button type="submit" 
                                         class="inline-flex items-center px-6 py-3 bg-green-600 border border-transparent rounded-lg font-bold text-sm text-white uppercase tracking-widest hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition">
-                                    📤 Kirim Lamaran
+                                    Kirim Lamaran
                                 </button>
                                 <a href="{{ route('jobs.index') }}" 
                                    class="inline-flex items-center px-6 py-3 bg-gray-600 border border-transparent rounded-lg font-bold text-sm text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition">

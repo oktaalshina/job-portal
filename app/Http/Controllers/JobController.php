@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\JobTemplateExport;
 use App\Imports\JobsImport;
 use Illuminate\Http\Request;
 // use Illuminate\Queue\Jobs\Job;
@@ -52,7 +53,7 @@ class JobController extends Controller
 
     public function show(Job $job)
     {
-        return view('jobs.index', compact('job'));
+        return view('jobs.show', compact('job'));
     }
 
     public function edit(Job $job)
@@ -107,5 +108,10 @@ class JobController extends Controller
         $request->validate(['file' => 'required|mimes:xlsx,csv']);
         Excel::import(new JobsImport, $request->file('file'));
         return back()->with('success', 'Data lowongan berhasil diimport');
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new JobTemplateExport, 'job_import_template.xlsx');
     }
 }

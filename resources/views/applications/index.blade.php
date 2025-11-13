@@ -34,6 +34,10 @@
                                             <a href="{{ asset('storage/' . $app->cv) }}" target="_blank" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-1 text-xs font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
                                                 Lihat CV
                                             </a>
+                                            <a href="{{ route('applications.download', $app->id) }}" 
+                                            class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-1 text-xs font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
+                                                Download CV
+                                            </a>
                                         </td>
                                         <td class="px-4 py-3 text-sm text-gray-700">
                                             <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium 

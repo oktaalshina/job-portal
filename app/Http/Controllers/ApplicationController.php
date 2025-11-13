@@ -17,10 +17,18 @@ class ApplicationController extends Controller
         return view('applications.index', compact('applications'));
     }
     
-    public function export() 
+    // method praktikum
+    // public function export() 
+    // {
+    //     return Excel::download(new ApplicationsExport, 'applications.xlsx');
+    // }
+
+    // method tugas/latihan nomor 7
+    public function export($jobId)
     {
-        return Excel::download(new ApplicationsExport, 'applications.xlsx');
+        return Excel::download(new ApplicationsExport($jobId), 'applications-' . $jobId . '.xlsx');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -37,6 +45,7 @@ class ApplicationController extends Controller
             'user_id' => auth()->id(),
             'job_id' => $jobId,
             'cv' => $cvPath,
+            'status' => 'Pending', // status awal
         ]);
 
         return back()->with('success', 'Lamaran berhasil dikirim!'); // ← Fixed typo
@@ -58,6 +67,20 @@ class ApplicationController extends Controller
 
         return back()->with('success', 'Status pelamar berhasil diperbarui!');
     }
+
+    public function download($id)
+    {
+        $application = Application::findOrFail($id);
+        $filePath = storage_path('app/public/' . $application->cv);
+
+        if (!file_exists($filePath)) {
+            return back()->with('error', 'File CV tidak ditemukan.');
+        }
+
+        return response()->download($filePath);
+    }
+
+
 
     // Sisanya bisa dikosongkan atau dihapus
     public function create() {}
