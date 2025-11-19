@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 use App\Exports\ApplicationsExport;
 use App\Models\Application;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel; // ← Tambahkan ini
+use Maatwebsite\Excel\Facades\Excel;
+use App\Mail\JobAppliedMail;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\NewApplicationNotification;
+use App\Models\User;
 
 class ApplicationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request) // ← Hapus $jobId
     {
         $applications = Application::with('user', 'job')->get();
@@ -29,10 +30,6 @@ class ApplicationController extends Controller
         return Excel::download(new ApplicationsExport($jobId), 'applications-' . $jobId . '.xlsx');
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request, $jobId)
     {
         $request->validate([
@@ -41,19 +38,23 @@ class ApplicationController extends Controller
 
         $cvPath = $request->file('cv')->store('cvs', 'public');
 
-        Application::create([
+        $application = Application::create([
             'user_id' => auth()->id(),
             'job_id' => $jobId,
             'cv' => $cvPath,
             'status' => 'Pending', // status awal
         ]);
 
-        return back()->with('success', 'Lamaran berhasil dikirim!'); // ← Fixed typo
+        //kirim email ke user
+        Mail::to(auth()->user()->email)
+        ->send(new JobAppliedMail($application->job, auth()->user()));
+
+        $admin = User::where('role', 'admin')->first();
+        $admin->notify(new NewApplicationNotification($application));
+
+        return back()->with('success', 'Lamaran berhasil dikirim!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -79,10 +80,6 @@ class ApplicationController extends Controller
 
         return response()->download($filePath);
     }
-
-
-
-    // Sisanya bisa dikosongkan atau dihapus
     public function create() {}
     public function show(string $id) {}
     public function edit(string $id) {}

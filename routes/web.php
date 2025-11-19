@@ -82,7 +82,7 @@ Route::resource('applications', ApplicationController::class)
     ->only(['index', 'show']);
 
 // Lamar pekerjaan (user)
-Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])
+Route::post('/jobs/{jobId}/apply', [ApplicationController::class, 'store'])
     ->name('apply.store')
     ->middleware('auth');
 

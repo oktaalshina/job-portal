@@ -22,7 +22,7 @@ class JobController extends Controller
         return view('jobs.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $jobId)
     {
         $request->validate([
             'title' => 'required',

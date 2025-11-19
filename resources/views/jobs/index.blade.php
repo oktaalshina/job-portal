@@ -38,14 +38,12 @@
                                         class="flex-1 text-sm border border-gray-300 rounded-lg cursor-pointer bg-white p-2">
                                     <button type="submit" 
                                             class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 transition">
-                                        📤 Import
+                                        Import
                                     </button>
                                 </form>
                             </div>
                         </div>
                     @endif
-
-
 
                     {{-- Success Message --}}
                     @if(session('success'))
