@@ -18,20 +18,17 @@ class SendApplicationMailJob implements ShouldQueue
 
     public $jobId;
     public $userId;
+    public $application;
 
-    public function __construct($jobId, $userId)
+    public function __construct($jobId, $userId, $application)
     {
         $this->jobId = $jobId;
         $this->userId = $userId;
+        $this->application = $application;
     }
 
     public function handle()
     {
-        \Log::info('Job starting', [
-            'job_id' => $this->jobId,
-            'user_id' => $this->userId
-        ]);
-
         $jobVacancy = JobVacancy::find($this->jobId);
         $user = User::find($this->userId);
 
@@ -45,9 +42,7 @@ class SendApplicationMailJob implements ShouldQueue
             return;
         }
 
-        // \Log::info('Sending email to: ' . $user->email);
-
         Mail::to($user->email)
-            ->send(new JobAppliedMail($jobVacancy, $user));
+            ->send(new JobAppliedMail($jobVacancy, $user, $this->application));
     }
 }

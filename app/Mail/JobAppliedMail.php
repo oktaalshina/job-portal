@@ -15,11 +15,13 @@ class JobAppliedMail extends Mailable
 
     public $job;
     public $user;
+    public $application;
 
-    public function __construct($job, $user)
+    public function __construct($job, $user, $application)
     {
         $this->job = $job;
         $this->user = $user;
+        $this->application = $application;
     }
 
     public function envelope(): Envelope

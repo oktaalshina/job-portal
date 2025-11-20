@@ -50,7 +50,7 @@ class ApplicationController extends Controller
         // //kirim email ke user
         // Mail::to(auth()->user()->email)
         // ->send(new JobAppliedMail($application->job, auth()->user()));
-        
+
         // Ambil data job dan user
         $job = JobVacancy::findOrFail($jobId);
         $user = auth()->user();
@@ -58,8 +58,8 @@ class ApplicationController extends Controller
         // \Log::info('User ID: ' . $user->id);
         // \Log::info('User Email: ' . $user->email);
 
-        // Pass object job dan user, bukan ID
-        dispatch(new SendApplicationMailJob($job->id, $user->id))
+        $job = JobVacancy::findOrFail($jobId);
+        dispatch(new SendApplicationMailJob($job->id, auth()->id(), $application))
         ->delay(now()->addSeconds(1));
 
         $admin = User::where('role', 'admin')->first();
