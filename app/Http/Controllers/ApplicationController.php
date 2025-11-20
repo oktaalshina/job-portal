@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\ApplicationsExport;
 use App\Jobs\SendApplicationMailJob;
+use App\Mail\ApplicationStatusMail;
 use App\Models\Application;
 use App\Models\JobVacancy;
 use Illuminate\Http\Request;
@@ -78,6 +79,10 @@ class ApplicationController extends Controller
         $application->update([
             'status' => $request->status,
         ]);
+
+        // Kirim email ke user sesuai status baru
+        Mail::to($application->user->email)
+        ->send(new ApplicationStatusMail($application, $request->status));
 
         return back()->with('success', 'Status pelamar berhasil diperbarui!');
     }
