@@ -2,7 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ApplicationsExport;
+use App\Jobs\SendApplicationMailJob;
 use App\Models\Application;
+use App\Models\JobVacancy;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\JobAppliedMail;
@@ -45,9 +47,20 @@ class ApplicationController extends Controller
             'status' => 'Pending', // status awal
         ]);
 
-        //kirim email ke user
-        Mail::to(auth()->user()->email)
-        ->send(new JobAppliedMail($application->job, auth()->user()));
+        // //kirim email ke user
+        // Mail::to(auth()->user()->email)
+        // ->send(new JobAppliedMail($application->job, auth()->user()));
+        
+        // Ambil data job dan user
+        $job = JobVacancy::findOrFail($jobId);
+        $user = auth()->user();
+
+        // \Log::info('User ID: ' . $user->id);
+        // \Log::info('User Email: ' . $user->email);
+
+        // Pass object job dan user, bukan ID
+        dispatch(new SendApplicationMailJob($job->id, $user->id))
+        ->delay(now()->addSeconds(1));
 
         $admin = User::where('role', 'admin')->first();
         $admin->notify(new NewApplicationNotification($application));
