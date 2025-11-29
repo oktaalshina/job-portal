@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 class Application extends Model
 {
@@ -21,6 +19,6 @@ class Application extends Model
     }
 
     public function job() {
-        return $this->belongsTo(JobVacancy::class, 'job_id');
+        return $this->belongsTo(JobVacancy::class);
     }
 }
