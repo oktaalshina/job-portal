@@ -10,12 +10,19 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+    * @OA\SecurityScheme(
+    * securityScheme="bearerAuth",
+    * type="http",
+    * scheme="bearer"
+    * )
+    */
     public function register(Request $req)
     {
         $data = $req->validate([
             'name' => 'required|string',
             'email' =>
-            'required|email|unique:users, email',
+            'required|email|unique:users,email',
             'password' => 'required|min:6',
         ]);
 

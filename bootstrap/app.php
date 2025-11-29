@@ -18,10 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'isAdmin' => IsAdmin::class,
         ]);
 
-        //atau menambahkan ke grup "api"
-        $middleware->appendToGroup('api', [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        $middleware->api(append: [
+            'throttle:api', 
         ]);
+        // //atau menambahkan ke grup "api"
+        // $middleware->appendToGroup('api', [
+        //     \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

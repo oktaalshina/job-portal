@@ -8,6 +8,27 @@ use Illuminate\Http\Request;
 
 class JobApiController extends Controller
 {
+    /**
+     * @OA\Get(
+     *  path="/api/jobs",
+     * summary="Get all job listings",
+     * tags={"Jobs"},
+     * security={{"bearerAuth":{}}},
+     * @OA\Response(
+     * response=200,
+     * description="List of jobs",
+     * @OA\JsonContent(
+     * type="array",
+     * @OA\Items(
+     * @OA\Property(property="id", type="integer"),
+     * @OA\Property(property="title", type="string"),
+     * @OA\Property(property="company", type="string"),
+     * @OA\Property(property="location", type="string")
+     * )
+     * )
+     * )
+     * )
+     */
     public function index(Request $req)
     {
         $q = JobVacancy::query();
