@@ -88,7 +88,7 @@ Route::post('/jobs/{jobId}/apply', [ApplicationController::class, 'store'])
 
 // Lihat pelamar per lowongan (Admin Only)
 Route::get('/jobs/{job}/applicants', [ApplicationController::class, 'index'])
-    ->name('applications.index')
+    ->name('applications.applicants')
     ->middleware('isAdmin');
 
 // ============================
